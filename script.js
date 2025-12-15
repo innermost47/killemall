@@ -1,6 +1,8 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
+canvas.style.width = canvas.width + "px";
+canvas.style.height = canvas.height + "px";
 const backGround = new Image();
 backGround.src = "./media/night-sky.png";
 const ship = new Image();

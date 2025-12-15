@@ -1,70 +1,619 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
+:root {
+  --atari-orange: #ff6b35;
+  --atari-red: #d4321c;
+  --atari-wood: #8b4513;
+  --atari-dark-wood: #5c2e0f;
+  --atari-black: #1a1a1a;
+  --atari-panel: #2a2a2a;
+  --atari-silver: #a8a8a8;
+  --atari-light: #d4d4d4;
+  --atari-yellow: #ffb347;
+  --atari-cream: #f5deb3;
+}
+
+* {
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
 body {
   margin: 0;
-  text-align: center;
+  padding: 0;
   font-family: "Press Start 2P", cursive;
   user-select: none;
-  background-color: #222;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1006 50%, #0a0a0a 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.game-container {
+  display: grid;
+  margin-top: -15px;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  margin-left: -100px;
+  max-width: 1000px;
+  width: 100%;
+  height: calc(100vh - 40px);
 }
 
 header {
-  margin: 0 auto;
-  width: 768px;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  border: 5px solid var(--atari-wood);
+  background: linear-gradient(
+    180deg,
+    var(--atari-panel) 0%,
+    var(--atari-black) 100%
+  );
+  box-shadow: 0 0 0 2px var(--atari-orange),
+    10px 10px 0 0 rgba(139, 69, 19, 0.4);
+  position: relative;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(
+    135deg,
+    var(--atari-dark-wood) 0%,
+    var(--atari-wood) 50%,
+    var(--atari-dark-wood) 100%
+  );
+  z-index: -1;
+  border-radius: 2px;
 }
 
 h1 {
-  background: black;
-  padding: 1.2rem 0;
+  background: linear-gradient(180deg, var(--atari-black) 0%, #0a0a0a 100%);
+  padding: 20px;
   margin: 0;
-  color: #fff;
+  color: var(--atari-cream);
+  font-size: 28px;
+  text-align: center;
+  letter-spacing: 4px;
+  border-bottom: 3px solid var(--atari-orange);
+  text-shadow: 0 0 20px var(--atari-orange), 3px 3px 0 var(--atari-red);
 }
 
 .score-container {
   display: flex;
-  justify-content: space-between;
-  padding: 8px 6px;
-  background: #801515;
+  justify-content: space-around;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(
+    180deg,
+    var(--atari-panel) 0%,
+    var(--atari-black) 100%
+  );
+  gap: 12px;
+  border-top: 2px solid var(--atari-orange);
 }
 
-.bullet {
-  background-color: red;
-  width: 6px;
-  height: 12px;
+.score-container > div {
+  font-size: 14px;
+  color: var(--atari-orange);
+  padding: 12px 16px;
+  background-color: var(--atari-black);
+  border: 3px solid var(--atari-wood);
+  min-width: 120px;
+  text-align: center;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 0 10px var(--atari-orange);
 }
 
-#youwin {
-  font-size: 25px;
-  padding-bottom: 20px;
+#canvas {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 220px);
+  border: 5px solid var(--atari-wood);
+  background-color: #000;
+  box-shadow: 0 0 0 2px var(--atari-orange),
+    inset 0 0 50px rgba(255, 107, 53, 0.1), 10px 10px 0 0 rgba(139, 69, 19, 0.4);
+  object-fit: contain;
+  position: relative;
+}
+
+#canvas::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+}
+
+.scoreTable {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  background: linear-gradient(
+    135deg,
+    var(--atari-panel) 0%,
+    var(--atari-black) 100%
+  );
+  padding: 24px;
+  border: 5px solid var(--atari-wood);
+  box-shadow: 0 0 0 2px var(--atari-orange),
+    10px 10px 0 0 rgba(139, 69, 19, 0.4);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.scoreTable::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(
+    135deg,
+    var(--atari-dark-wood) 0%,
+    var(--atari-wood) 50%,
+    var(--atari-dark-wood) 100%
+  );
+  z-index: -1;
+  border-radius: 2px;
+}
+
+.score-header {
+  text-align: center;
+}
+
+h3 {
+  color: var(--atari-yellow) !important;
+  font-size: 18px;
+  margin: 0 0 8px 0;
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--atari-orange);
+  text-align: center;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px var(--atari-yellow), 3px 3px 0 rgba(0, 0, 0, 0.7);
+}
+
+.score-subtitle {
+  font-size: 9px;
+  color: var(--atari-silver);
+  text-align: center;
+  margin: 8px 0 0 0;
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.score_maker {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.score_maker li {
+  padding: 14px 12px 14px 45px;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, var(--atari-black) 0%, #0a0a0a 100%);
+  border: 3px solid var(--atari-wood);
+  position: relative;
+  color: var(--atari-cream);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s;
+}
+
+.score_maker li:hover {
+  border-color: var(--atari-orange);
+  transform: translateX(3px);
+}
+
+.score_maker li::before {
+  content: counter(list-item);
+  position: absolute;
+  left: 14px;
+  color: var(--atari-orange);
+  font-weight: bold;
+  text-shadow: 0 0 10px var(--atari-orange);
+  font-size: 14px;
+}
+
+.score_maker li:nth-child(1) {
+  border-color: var(--atari-yellow);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 179, 71, 0.2) 0%,
+    var(--atari-black) 100%
+  );
+  color: var(--atari-yellow);
+  text-shadow: 0 0 10px var(--atari-yellow);
+  padding: 16px 12px 16px 50px;
+}
+
+.score_maker li:nth-child(1)::before {
+  color: var(--atari-yellow);
+  content: "👑";
+  font-size: 18px;
+  left: 16px;
+  filter: drop-shadow(0 0 8px var(--atari-yellow));
+}
+
+.score_maker li:nth-child(2) {
+  border-color: var(--atari-silver);
+  color: var(--atari-light);
+}
+
+.score_maker li:nth-child(2)::before {
+  color: var(--atari-silver);
+}
+
+.score_maker li:nth-child(3) {
+  border-color: #cd7f32;
+  color: var(--atari-orange);
+}
+
+.score_maker li:nth-child(3)::before {
+  color: #cd7f32;
+}
+
+.scoreTable .text {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--atari-silver);
+  padding: 20px;
+  background-color: var(--atari-black);
+  border: 3px solid var(--atari-wood);
+  text-align: center;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+  font-style: italic;
+}
+
+.separator {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--atari-orange) 50%,
+    transparent 100%
+  );
+  margin: 16px 0;
+}
+
+.scoreTable-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 3px solid var(--atari-orange);
+}
+
+.contact-section {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  padding: 16px;
+  border: 3px solid var(--atari-wood);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.contact-title {
+  font-size: 10px;
+  color: var(--atari-orange);
+  margin: 0 0 12px 0;
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px var(--atari-orange);
+}
+
+.contact-content {
+  font-size: 9px;
+  line-height: 2;
+  color: var(--atari-silver);
+  text-align: center;
+  margin: 0;
+}
+
+.contact-content a {
+  color: var(--atari-orange);
+  text-decoration: none;
+  transition: all 0.2s;
+  text-shadow: 0 0 5px var(--atari-orange);
+  display: inline-block;
+  padding: 4px;
+  border-bottom: 1px solid transparent;
+  font-size: 0.45rem;
+}
+
+.contact-content a:hover {
+  color: var(--atari-yellow);
+  text-shadow: 0 0 15px var(--atari-yellow);
+  border-bottom-color: var(--atari-yellow);
+}
+
+.credits {
+  font-size: 8px;
+  color: var(--atari-silver);
+  text-align: center;
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--atari-wood);
+  line-height: 1.8;
+}
+
+.credits a {
+  color: var(--atari-silver);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.credits a:hover {
+  color: var(--atari-cream);
+  text-shadow: 0 0 8px var(--atari-cream);
 }
 
 .formulaire {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  right: 10%;
-  bottom: 10%;
-  background-color: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 90%;
+  background: linear-gradient(
+    135deg,
+    var(--atari-panel) 0%,
+    var(--atari-black) 100%
+  );
   padding: 30px;
+  border: 5px solid var(--atari-wood);
+  box-shadow: 0 0 0 3px var(--atari-orange), 0 0 0 100vmax rgba(0, 0, 0, 0.9),
+    0 20px 60px rgba(255, 107, 53, 0.3);
   visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1000;
+}
+
+.formulaire_visible::before {
+  content: "GAME OVER";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--atari-red) 0%, #8b0000 100%);
+  color: var(--atari-cream);
+  padding: 10px 40px;
+  font-size: 14px;
+  border: 3px solid var(--atari-black);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 3px;
 }
 
 .formulaire_visible {
   visibility: visible;
+  opacity: 1;
 }
 
-.score_maker {
-  color: #fff;
-  margin-left: 10px;
+#youwin {
+  font-size: 20px;
+  color: var(--atari-yellow);
+  text-align: center;
+  margin-bottom: 24px;
+  text-shadow: 0 0 20px var(--atari-yellow);
+  animation: blink 1s infinite;
 }
 
-h3 {
-  color: #fff !important;
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.4;
+  }
 }
 
-.scoreTable {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  text-align: left;
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--atari-orange);
+  font-size: 12px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px var(--atari-orange);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--atari-black);
+  border: 3px solid var(--atari-wood);
+  color: var(--atari-cream);
+  font-family: "Press Start 2P", cursive;
+  font-size: 14px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--atari-orange);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7),
+    0 0 15px rgba(255, 107, 53, 0.5);
+}
+
+#erreur {
+  color: var(--atari-red);
+  font-size: 10px;
+  margin-top: 8px;
+  min-height: 20px;
+  text-shadow: 0 0 10px var(--atari-red);
+}
+
+.btn {
+  font-family: "Press Start 2P", cursive;
+  font-size: 12px;
+  padding: 14px 24px;
+  margin: 8px;
+  border: 4px solid;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.3), 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3), 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.btn-success {
+  background: linear-gradient(180deg, #5fd35f 0%, #3fa63f 100%);
+  border-color: #2a7a2a;
+  color: var(--atari-black);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-success:hover {
+  background: linear-gradient(180deg, #7fe77f 0%, #5fd35f 100%);
+}
+
+.btn-danger {
+  background: linear-gradient(180deg, var(--atari-red) 0%, #8b0000 100%);
+  border-color: #5c0000;
+  color: var(--atari-cream);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(
+    180deg,
+    var(--atari-orange) 0%,
+    var(--atari-red) 100%
+  );
+}
+
+.scoreTable::-webkit-scrollbar {
+  width: 16px;
+}
+
+.scoreTable::-webkit-scrollbar-track {
+  background: var(--atari-black);
+  border: 2px solid var(--atari-wood);
+}
+
+.scoreTable::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--atari-wood) 0%,
+    var(--atari-dark-wood) 100%
+  );
+  border: 2px solid var(--atari-orange);
+}
+
+.scoreTable::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    var(--atari-orange) 0%,
+    var(--atari-red) 100%
+  );
+}
+
+@media (max-width: 1200px) {
+  .game-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    height: auto;
+  }
+
+  .scoreTable {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    max-height: 400px;
+  }
+
+  header {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  #canvas {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    max-height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .game-container {
+    gap: 10px;
+  }
+
+  h1 {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .score-container {
+    flex-direction: column;
+    padding: 12px;
+  }
+
+  .score-container > div {
+    width: 100%;
+    font-size: 11px;
+  }
+
+  .scoreTable {
+    padding: 12px;
+  }
+
+  h3 {
+    font-size: 13px;
+  }
+
+  .score_maker {
+    font-size: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    margin: 8px 0;
+  }
 }
