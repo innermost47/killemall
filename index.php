@@ -6,80 +6,78 @@ $pdo = getPdo();
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Kill Em'All - Retro Space Shooter Game | Free Online Arcade Game</title>
+  <meta name="description" content="Play Kill Em'All, a free retro-style space shooter game. Battle aliens, dodge asteroids, and compete for the top score in our Hall of Fame. Nostalgic arcade action in your browser!">
+  <meta name="keywords" content="space shooter game, retro arcade game, free online game, browser game, space invaders, shoot em up, pixel art game, Anthony Charretier">
+  <meta name="author" content="Anthony Charretier">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Kill Em'All - Retro Space Shooter Game">
+  <meta property="og:description" content="Free retro-style space shooter. Battle aliens, compete for high scores, and relive the golden age of arcade gaming!">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./media/icon.png">
+  <meta property="og:url" content="https://killemall.anthony-charretier.fr">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kill Em'All - Retro Space Shooter Game">
+  <meta name="twitter:description" content="Free retro-style space shooter. Battle aliens and compete for high scores!">
+  <meta name="twitter:image" content="./media/icon.png">
+
+  <link rel="canonical" href="https://killemall.anthony-charretier.fr">
+  <link rel="icon" href="./media/icon.png" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Kill Em'All",
+      "description": "A retro-style space shooter game where players battle aliens and asteroids to achieve the highest score",
+      "author": {
+        "@type": "Person",
+        "name": "Anthony Charretier"
+      },
+      "gamePlatform": "Web Browser",
+      "genre": "Shoot 'em up",
+      "playMode": "SinglePlayer"
+    }
+  </script>
+
   <script type="text/javascript" src="./tarteaucitron/tarteaucitron.js"></script>
   <script type="text/javascript">
     tarteaucitron.init({
       "privacyUrl": "https://legals.anthony-charretier.fr/",
-      /* Privacy policy url */
-
       "hashtag": "#tarteaucitron",
-      /* Open the panel with this hashtag */
       "cookieName": "tarteaucitron",
-      /* Cookie name */
-
       "orientation": "middle",
-      /* Banner position (top - bottom) */
-
       "groupServices": false,
-      /* Group services by category */
-
       "showAlertSmall": false,
-      /* Show the small banner on bottom right */
       "cookieslist": false,
-      /* Show the cookie list */
-
       "closePopup": false,
-      /* Show a close X on the banner */
-
       "showIcon": true,
-      /* Show cookie icon to manage cookies */
-      //"iconSrc": "", /* Optionnal: URL or base64 encoded image */
       "iconPosition": "TopRight",
-      /* BottomRight, BottomLeft, TopRight and TopLeft */
-
       "adblocker": false,
-      /* Show a Warning if an adblocker is detected */
-
       "DenyAllCta": true,
-      /* Show the deny all button */
       "AcceptAllCta": true,
-      /* Show the accept all button when highPrivacy on */
       "highPrivacy": true,
-      /* HIGHLY RECOMMANDED Disable auto consent */
-
       "handleBrowserDNTRequest": false,
-      /* If Do Not Track == 1, disallow all */
-
       "removeCredit": false,
-      /* Remove credit link */
       "moreInfoLink": true,
-      /* Show more info link */
-
       "useExternalCss": false,
-      /* If false, the tarteaucitron.css file will be loaded */
       "useExternalJs": false,
-      /* If false, the tarteaucitron.js file will be loaded */
-
-      //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
-
       "readmoreLink": "",
-      /* Change the default readmore link */
-
-      "mandatory": true,
-      /* Show a message about mandatory cookies */
+      "mandatory": true
     });
   </script>
-  <title>Kill Em'All</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link href="./style.css" rel="stylesheet">
-  <link rel="icon" href="./media/icon.png" />
 </head>
 
 <body>

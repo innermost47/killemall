@@ -511,7 +511,7 @@ function computerWin() {
   ctx.font = "bold 30px courier";
   ctx.fillText(txt, canvas.width / 2 - ctx.measureText(txt).width / 2, 300);
 
-  const txt2 = "Appuyer sur Espace pour recommencer";
+  const txt2 = "Press Space to restart";
   ctx.font = "bold 25px courier";
   ctx.fillText(txt2, canvas.width / 2 - ctx.measureText(txt2).width / 2, 550);
 }
@@ -529,7 +529,7 @@ function dead() {
   ctx.font = "bold 40px courier";
   ctx.fillText(txt1, canvas.width / 2 - ctx.measureText(txt1).width / 2, 250);
 
-  const txt2 = "Appuyer sur Espace pour recommencer";
+  const txt2 = "Press Space to restart";
   ctx.font = "bold 25px courier";
   ctx.fillText(txt2, canvas.width / 2 - ctx.measureText(txt2).width / 2, 550);
 }
@@ -573,7 +573,7 @@ document.getElementById("formulaire").addEventListener("submit", (e) => {
         erreur.innerHTML = `<p class="alert alert-danger">${response.msg}</p>`;
       }
     } else if (this.readyState == 4) {
-      alert("Une erreur est survenue");
+      alert("An error occurred");
     }
   };
 
@@ -697,13 +697,13 @@ function update() {
     vaisseau.draw(ctx, positionX, positionY);
 
     ctx.fillStyle = "#fff";
-    const txt = "Appuyer sur Espace pour commencer";
+    const txt = "Press Space to start";
     ctx.font = "bold 30px courier";
     ctx.fillText(txt, canvas.width / 2 - ctx.measureText(txt).width / 2, 550);
 
     ctx.font = "bold 18px courier";
     const txtCommandes =
-      "Haut: up - Bas: down - Gauche: left - Droite: right | Tirer: spaceBar";
+      "Up: up - Down: down - Left: left - Right: right | Shoot: spaceBar";
     ctx.fillText(
       txtCommandes,
       canvas.width / 2 - ctx.measureText(txtCommandes).width / 2,
@@ -711,8 +711,7 @@ function update() {
     );
 
     ctx.font = "bold 18px courier";
-    const txtCredit =
-      "Game design, music and programmation: Anthony Charretier";
+    const txtCredit = "Game design, music and programming: Anthony Charretier";
     ctx.fillText(
       txtCredit,
       canvas.width / 2 - ctx.measureText(txtCredit).width / 2,
